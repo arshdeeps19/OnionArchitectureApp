@@ -1,27 +1,14 @@
-﻿using DomainLayer.Entities;
-using DomainLayer.Interfaces;
 using System.Data.Entity;
+using DomainLayer.Entities;
 
-namespace RepositoryLayer.Repositories
+namespace RepositoryLayer
 {
-    public class StudentRepository : IStudentRepository
+    public class ApplicationDbContext : DbContext
     {
-        private readonly ApplicationDbContext _context;
+        public DbSet<Students> Students { get; set; }
 
-        public StudentRepository()
+        public ApplicationDbContext() : base("DefaultConnection")
         {
-            _context = new ApplicationDbContext();
-        }
-
-        public Students GetStudent(int id)
-        {
-            return _context.Students.Find(id);
-        }
-
-        public void AddStudent(Students student) // Implement this method
-        {
-            _context.Students.Add(student);
-            _context.SaveChanges(); // Save changes to the database
         }
     }
 }
